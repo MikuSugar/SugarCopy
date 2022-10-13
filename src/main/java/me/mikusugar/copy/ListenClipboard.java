@@ -26,6 +26,10 @@ public class ListenClipboard implements Runnable
             try
             {
                 String str = ClipboardUtil.getStr();
+                if (str.trim().isEmpty())
+                {
+                    return null;
+                }
                 Long time = System.currentTimeMillis();
                 final Info info = new Info(str, time);
                 System.out.println(new Date() + " 检测到剪贴板值发送变化，发送消息到所有机器");
