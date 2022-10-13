@@ -40,7 +40,7 @@ public class SocketServer implements Runnable
                 String content;
                 while ((content = br.readLine()) != null && !"".equals(content))
                 {
-                    str.append(content);
+                    str.append(content).append(System.lineSeparator());
                 }
                 System.out.println(new Date() + " 接收到来自：" + socket.getLocalAddress() + "的消息：" + str);
 
