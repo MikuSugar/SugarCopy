@@ -42,7 +42,8 @@ public class SocketServer implements Runnable
                 {
                     str.append(content).append(System.lineSeparator());
                 }
-                System.out.println(new Date() + " 接收到来自：" + socket.getLocalAddress() + "的消息：" + str);
+                System.out.println(new Date() + " 接收到来自：" + socket.getLocalAddress() + "的消息：");
+                System.out.println(str);
 
                 final String result = str.toString();
                 final String oldStr = ClipboardUtil.getStr();

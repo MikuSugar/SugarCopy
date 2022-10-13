@@ -32,7 +32,8 @@ public class MessageBox
                 InputStream is = socket.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 
-                System.out.println(new Date() + " 往" + info + "发送信息：" + msg);
+                System.out.println(new Date() + " 往" + info + "发送信息：");
+                System.out.println(msg);
                 pw.write(msg);
                 pw.flush();
                 socket.shutdownOutput();
