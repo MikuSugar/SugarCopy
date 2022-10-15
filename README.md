@@ -22,6 +22,6 @@ java -jar sugar-copy-1.0-SNAPSHOT-jar-with-dependencies.jar 15672 192.168.50.217
 
 ## 待办
 
-+ 图片/文件类型剪贴板支持
++ ~~图片~~/文件类型剪贴板支持
 + GUI支持
 

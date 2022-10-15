@@ -2,6 +2,7 @@ package me.mikusugar.copy;
 
 import cn.hutool.core.swing.clipboard.ClipboardUtil;
 
+import java.awt.*;
 import java.util.Date;
 
 /**
@@ -25,15 +26,17 @@ public class ListenClipboard implements Runnable
         {
             try
             {
-                String str = ClipboardUtil.getStr();
-                if (str.trim().isEmpty())
+                final Info info = new Info();
+                try
                 {
-                    return null;
+                    final Image image = ClipboardUtil.getImage();
+                    info.setImage(image);
                 }
-                Long time = System.currentTimeMillis();
-                final Info info = new Info(str, time);
-                System.out.println(new Date() + " 检测到剪贴板值发送变化，发送消息到所有机器");
-                messageBox.sendMsgAll(info.getStr());
+                catch (Exception e)
+                {
+                    info.setStr(ClipboardUtil.getStr());
+                }
+                messageBox.sendMsgAll(info);
                 return null;
             }
             catch (Exception e)

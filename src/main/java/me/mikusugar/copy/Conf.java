@@ -27,14 +27,14 @@ public class Conf
             computeInfos.add(computeInfo);
         }
         final Conf res = new Conf(localPort, computeInfos);
-        System.out.println(new Date() + " 配置解析成功：" + res);
+        System.out.println(new Date() + " 配置解析成功：\n" + res);
         return res;
     }
 
     @Override
     public String toString()
     {
-        return "Conf{" + "localPort=" + localPort + ",\r\n computeInfos=" + computeInfos + '}';
+        return "Conf{\n\r" + "localPort=" + localPort + ",\r\n computeInfos=" + computeInfos + "\r\n}";
     }
 
     public Conf(int localPort, List<ComputeInfo> computeInfos)
