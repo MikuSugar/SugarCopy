@@ -1,7 +1,5 @@
 package me.mikusugar.copy;
 
-import cn.hutool.core.swing.clipboard.ClipboardUtil;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -2,10 +2,10 @@ package me.mikusugar.copy;
 
 import cn.hutool.core.swing.clipboard.ClipboardUtil;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -33,14 +33,20 @@ public class SocketServer implements Runnable
                 Socket socket = server.accept();
                 final ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                 final Info info = (Info)objectInputStream.readObject();
-                System.out.println(new Date() + " 接收到来自[" + socket.getLocalAddress() + "]的消息：");
+                System.out.println(new Date() + " 接收到来自[" + socket.getLocalAddress() + "]的消息");
                 if (info.isImage() && !info.equal(ClipboardUtil.getImage()))
                 {
+                    System.out.println(new Date() + " 修改当前系统剪贴板为消息图片");
                     ClipboardUtil.setImage(info.getImage());
                 }
                 else if (!info.isImage() && !info.getStr().equals(ClipboardUtil.getStr()))
                 {
+                    System.out.println(new Date() + " 修改当前系统剪贴板为消息文字");
                     ClipboardUtil.setStr(info.getStr());
+                }
+                else
+                {
+                    System.out.println(new Date() + " 与之前剪贴板内容一致，不做修改");
                 }
                 socket.close();
 
