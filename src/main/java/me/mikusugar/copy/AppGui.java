@@ -3,10 +3,9 @@ package me.mikusugar.copy;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 
 /**
  * @author mikusugar
@@ -21,10 +20,11 @@ public class AppGui
         initDock(image);
         redirectSystemStreams();
         final JFrame jFrame = getJFrame();
-        String argConf = JOptionPane.showInputDialog("请输入启动配置:");
+        String argConf = JOptionPane.showInputDialog("请输入启动配置:", getLastStr());
         jFrame.setVisible(true);
         final Conf conf = Conf.parseArgs(argConf.split(" "));
         APP.run(conf);
+        saveArgConf(argConf);
 
         TrayIcon trayIcon = new TrayIcon(image);
 
@@ -39,6 +39,33 @@ public class AppGui
         trayIcon.setPopupMenu(popupMenu);
         SystemTray systemTray = SystemTray.getSystemTray();
         systemTray.add(trayIcon);
+    }
+
+    private final static String TMP_PATH = "/tmp/scopy.old";
+
+    private static void saveArgConf(String argConf)
+    {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(TMP_PATH)))
+        {
+            out.write(argConf);
+            out.flush();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private static Object getLastStr()
+    {
+        try (final BufferedReader reader = new BufferedReader(new FileReader(TMP_PATH)))
+        {
+            return reader.readLine();
+        }
+        catch (IOException e)
+        {
+            return "";
+        }
     }
 
     private static MenuItem getLogMenuItem(JFrame logFrame)
