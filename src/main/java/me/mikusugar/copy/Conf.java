@@ -1,9 +1,6 @@
 package me.mikusugar.copy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author mikusugar
@@ -29,6 +26,16 @@ public class Conf
         final Conf res = new Conf(localPort, computeInfos);
         System.out.println(new Date() + " 配置解析成功:" + res);
         return res;
+    }
+
+    public static Conf interactiveInput()
+    {
+        System.out.println(new Date() + " 进入交互式输入配置");
+        System.out.println("请输入配置：");
+        Scanner scanner = new Scanner(System.in);
+        final String args = scanner.nextLine();
+        scanner.close();
+        return parseArgs(args.split(" "));
     }
 
     @Override
