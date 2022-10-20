@@ -19,9 +19,9 @@ public class AppGui
         checkSupport();
         initDock(image);
         redirectSystemStreams();
-        final JFrame jFrame = getJFrame();
+        final JFrame logFrame = getJFrame();
         String argConf = JOptionPane.showInputDialog("请输入启动配置:", getLastStr());
-        jFrame.setVisible(true);
+        logFrame.setVisible(true);
         final Conf conf = Conf.parseArgs(argConf.split(" "));
         APP.run(conf);
         saveArgConf(argConf);
@@ -32,7 +32,7 @@ public class AppGui
 
         PopupMenu popupMenu = new PopupMenu();
 
-        popupMenu.add(getLogMenuItem(jFrame));
+        popupMenu.add(getLogMenuItem(logFrame));
         popupMenu.addSeparator();
         popupMenu.add(getExitMenuItem());
 
@@ -77,6 +77,8 @@ public class AppGui
             public void actionPerformed(ActionEvent e)
             {
                 logFrame.setVisible(true);
+                logFrame.setFocusable(true);
+                logFrame.setAlwaysOnTop(true);
             }
         });
         return exitItem;
@@ -100,6 +102,7 @@ public class AppGui
             public void windowClosing(WindowEvent e)
             {
                 jFrame.setVisible(false);
+                jFrame.setAlwaysOnTop(false);
             }
         });
         return jFrame;
@@ -167,6 +170,9 @@ public class AppGui
     }
 
     private static final JTextArea textArea = new JTextArea(4, 25);
+    static {
+        textArea.setCaretPosition(textArea.getText().length());
+    }
 
     private static void updateTextArea(final String text)
     {
