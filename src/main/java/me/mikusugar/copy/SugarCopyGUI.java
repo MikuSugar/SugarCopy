@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
 
 /**
  * @author mikusugar
  * @version 1.0, 2022/10/17 15:47
  */
-public class AppGui
+public class SugarCopyGUI
 {
     public static void main(String[] args) throws AWTException
     {
@@ -23,7 +22,7 @@ public class AppGui
         String argConf = JOptionPane.showInputDialog("请输入启动配置:", getLastStr());
         logFrame.setVisible(true);
         final Conf conf = Conf.parseArgs(argConf.split(" "));
-        APP.run(conf);
+        SugarCopy.run(conf);
         saveArgConf(argConf);
 
         TrayIcon trayIcon = new TrayIcon(image);
@@ -143,7 +142,7 @@ public class AppGui
 
     private static Image getIconImage()
     {
-        URL url = AppGui.class.getClassLoader().getResource("icon.png");
+        URL url = SugarCopyGUI.class.getClassLoader().getResource("icon.png");
         assert url != null;
         ImageIcon icon = new ImageIcon(url);
         return icon.getImage();

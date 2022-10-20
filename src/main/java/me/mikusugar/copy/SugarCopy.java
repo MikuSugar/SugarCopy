@@ -1,6 +1,6 @@
 package me.mikusugar.copy;
 
-public class APP
+public class SugarCopy
 {
     public static void main(String[] args)
     {
